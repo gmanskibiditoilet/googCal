@@ -13,7 +13,7 @@ subprocess.run(['/usr/bin/fetchmail'])
 
 def openFile ( filePath ):
     try:
-        f=open(filePath, 'r')
+        f=open('/etc/googleCalendar/mail/'+filePath, 'r')
         lines = f.readlines()
     except:
         if debugging:
@@ -48,8 +48,8 @@ service = build('calendar', 'v3', http=creds.authorize(Http()))
 
 
 #Load all the email files into memory
-messages = os.listdir("/etc/googCal/mail")
-Proceed = True; groupName = False
+messages = os.listdir("/etc/googleCalendar/mail")
+Proceed = True; groupName = False; dateString = False; zoomLink = False
 for message in messages:
     lines = openFile ( message )
     #Loop through the lines looking for the info.
@@ -76,7 +76,7 @@ for message in messages:
                 break
             try:
                 zoomLink = str(re.findall("https:\/\/.*'>", line)[0])[:-2]
-                if not("zoom" in zoomLink)
+                if not("zoom" in zoomLink):
                     #link is not a zoom link
                     zoomLink = False
             except:
@@ -86,9 +86,11 @@ for message in messages:
                 break
     
     #Validate
-    if not(Proceed and dateString and zoomLink and groupName)
+    if not(Proceed and dateString and zoomLink and groupName):
         #This email does not contain all necessary info. 
         #Stop processing this email and move on to the next in the loop
+        if debugging:
+            print ("Invalid Email, moving on")
         continue
     
     #Break the dateString into parts
@@ -111,16 +113,21 @@ for message in messages:
     timezone = TimezoneDictionary.get(timezoneStr, 'Unknown Timezone')
     if debugging:
         print("Group Name:\t"+groupName+"\nZoom Link:\t"+zoomLink+"\nStart Date:\t"+startDate.strftime("%b %d, %Y  %I:%M %p")+"\nEnd Date:\t"+endDate.strftime("%b %d, %Y  %I:%M %p")+"\nTimezone:\t"+timezone)
+
+    #convert datetime objects into strings
+    startDateStr = startDate.strftime('%Y-%m-%dT%H:%M:00')
+    endDateStr = endDate.strftime('%Y-%m-%dT%H:%M:00')
+
     event = {
         'summary': groupName,
         'location': zoomLink,
         'description': zoomLink,
         'start': {
-            'dateTime': startDate,
+            'dateTime': startDateStr,
             'timeZone': timezone,
         },
         'end': {
-            'dateTime': endDate,
+            'dateTime': endDateStr,
             'timeZone': timezone,
         },
         'reminders': {
@@ -131,7 +138,7 @@ for message in messages:
         },
     }
     try:
-        event = service.events().insert(calendarID='primary', body=event).execute()
+        event = service.events().insert(calendarId='primary', body=event).execute()
     except:
         if debugging:
             print("Error posting the event to Google Calendar")
@@ -139,7 +146,7 @@ for message in messages:
         input=" - <!channel> EVENT ERROR: "
         error=str(e)
         error=re.sub("<|>", "", error)
-        error= error.split("returned",1)[1]
+        error= error.split("returned",1) #[1]
         error= error.split("\"")[1]
         output=groupName+input+error
         data = '{"text":"%s"}' % (output)

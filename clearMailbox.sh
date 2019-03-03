@@ -1,4 +1,4 @@
 #!/bin/bash
 
-rm /home/piratemonk/mail/*
+rm /etc/googleCalendar/mail/*
 echo "Mailbox cleared"

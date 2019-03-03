@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 
-import os, re, requests, sys
+import os, re, requests, sys, subprocess
 from datetime import datetime, timedelta
 from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 
 debugging = True
+
+#check email
+subprocess.run(['/usr/bin/fetchmail'])
 
 def openFile ( filePath ):
     try:

@@ -105,6 +105,12 @@ for message in messages:
     timezoneStr = dateString.split("(")[1]
     if timezoneStr[-1] == ' ': #Remove trailing space if present
         timezoneStr = timezoneStr[:-1]
+        if debugging:
+            print("Removed trailing space from time zone string")
+    if timezoneStr[-1] == ')':
+        timezoneStr = timezoneStr[:-1]
+        if debugging:
+            print("Removed trailing ) from time zone string")
     #Convert email format timezone to Google format timezoneStr
     TimezoneDictionary = {
         'Eastern Time': 'America/New_York',
@@ -114,6 +120,15 @@ for message in messages:
         'Greenwich Mean Time : London': 'Etc/GMT'
     }
     timezone = TimezoneDictionary.get(timezoneStr, 'Unknown Timezone')
+    if timezone == 'Unknown Timezone':
+        headers = {
+            'Content-type': 'application/json',
+        }
+        output="Encountered unknown timezone "+timezoneStr+" in "+groupName
+        data = '{"text":"%s"}' % (output)
+        response = requests.post('https://hooks.slack.com/services/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', headers=headers, data=data)
+        continue
+
     if debugging:
         print("Group Name:\t"+groupName+"\nZoom Link:\t"+zoomLink+"\nStart Date:\t"+startDate.strftime("%b %d, %Y  %I:%M %p")+"\nEnd Date:\t"+endDate.strftime("%b %d, %Y  %I:%M %p")+"\nTimezone:\t"+timezone)
 

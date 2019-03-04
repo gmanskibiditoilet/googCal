@@ -8,6 +8,8 @@ from oauth2client import file, client, tools
 
 debugging = True
 
+os.chdir('/etc/googCal/')
+
 #check email
 subprocess.run(['/usr/bin/fetchmail'])
 
@@ -141,6 +143,15 @@ for message in messages:
     os.remove("/etc/googleCalendar/mail/"+message)
     try:
         event = service.events().insert(calendarId='primary', body=event).execute()
+        if debugging:
+            #Verbose notifications of creation of each event
+            headers = {
+                'Content-type': 'application/json',
+            }
+            output="Event created for: "+groupName
+            data = '{"text":"%s"}' % (output)
+            response = requests.post('https://hooks.slack.com/services/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', headers=headers, data=data)
+
     except:
         if debugging:
             print("Error posting the event to Google Calendar")

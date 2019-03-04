@@ -91,6 +91,7 @@ for message in messages:
         #Stop processing this email and move on to the next in the loop
         if debugging:
             print ("Invalid Email, moving on")
+        os.remove("/etc/googleCalendar/mail/"+message)
         continue
     
     #Break the dateString into parts
@@ -137,6 +138,7 @@ for message in messages:
             ],
         },
     }
+    os.remove("/etc/googleCalendar/mail/"+message)
     try:
         event = service.events().insert(calendarId='primary', body=event).execute()
     except:

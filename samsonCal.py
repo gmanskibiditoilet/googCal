@@ -11,7 +11,14 @@ debugging = True
 os.chdir('/etc/googCal/')
 
 #check email
-subprocess.run(['/usr/bin/fetchmail'])
+try:
+    subprocess.check_output(['/usr/bin/fetchmail'])
+except subprocess.CalledProcessError as e:
+    if "Query status=2 (SOCKET)" in str(e.output):
+        subprocess.run(['/etc/googCal/fixSSL.sh'])
+    else:
+        print("Something else went wrong: "+str(e.output))
+        quit()
 
 def openFile ( filePath ):
     try:

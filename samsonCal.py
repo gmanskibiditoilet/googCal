@@ -142,7 +142,7 @@ for message in messages:
     #convert datetime objects into strings
     startDateStr = startDate.strftime('%Y-%m-%dT%H:%M:00')
     endDateStr = endDate.strftime('%Y-%m-%dT%H:%M:00')
-    description = zoomLink+"\nCall In Numbers: +1-408-638-0968 & +1-646-558-8656"
+    description = zoomLink+"\nCall In Numbers:\n+1-408-638-0968\n+1-646-558-8656"
 
     event = {
         'summary': groupName,

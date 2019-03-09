@@ -124,7 +124,8 @@ for message in messages:
         'Central Time': 'America/Chicago',
         'Alaska': 'America/Anchorage',
         'Amsterdam, Berlin, Bern, Rome, Stockho': 'Europe/Rome',
-        'Greenwich Mean Time : London': 'Etc/GMT'
+        'Greenwich Mean Time : London': 'Etc/GMT',
+        'Pacific Time': 'America/Los_Angeles'
     }
     timezone = TimezoneDictionary.get(timezoneStr, 'Unknown Timezone')
     if timezone == 'Unknown Timezone':

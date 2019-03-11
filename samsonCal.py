@@ -16,6 +16,8 @@ try:
 except subprocess.CalledProcessError as e:
     if "Query status=2 (SOCKET)" in str(e.output):
         subprocess.run(['/etc/googCal/fixSSL.sh'])
+    elif "No mail for piratemonkscal@gmail.com" in str(e.output):
+        print("No New Mail")
     else:
         print("Something else went wrong: "+str(e.output))
         quit()

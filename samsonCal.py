@@ -6,16 +6,16 @@ from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 
-debugging = False
+debugging = True
 
-os.chdir('/etc/googCal/')
+os.chdir('/etc/googleCalendar/')
 
 #check email
 try:
     subprocess.check_output(['/usr/bin/fetchmail'])
 except subprocess.CalledProcessError as e:
     if "Query status=2 (SOCKET)" in str(e.output):
-        subprocess.run(['/etc/googCal/fixSSL.sh'])
+        subprocess.run(['/etc/googleCalendar/fixSSL.sh'])
     elif "No mail for piratemonkscal@gmail.com" in str(e.output):
         print("No New Mail")
     else:

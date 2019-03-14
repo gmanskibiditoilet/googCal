@@ -106,7 +106,7 @@ for message in messages:
             print ("groupName: "+str(groupName))
             print ("dateString: "+str(dateString))
             print ("zoomLink: "+str(zoomLink))
-#        os.remove("/etc/googleCalendar/mail/"+message)
+        os.remove("/etc/googleCalendar/mail/"+message)
         continue
     
     #Break the dateString into parts

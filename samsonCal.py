@@ -63,8 +63,8 @@ messages = os.listdir("/etc/googleCalendar/mail")
 for message in messages:
     lines = openFile ( message )
     #Loop through the lines looking for the info.
+    Proceed = True; groupName = False; dateString = False; zoomLink = False
     for line in lines:
-        Proceed = True; groupName = False; dateString = False; zoomLink = False
         if "Subject:" in line:
             #This is the subject line.
             #Need to check if it is an invitation to next meeting
@@ -98,11 +98,15 @@ for message in messages:
     
     #Validate
     if not(Proceed and dateString and zoomLink and groupName):
-        #This email does not contain all necessary info. 
+        #This email does not contain all necessary info.
         #Stop processing this email and move on to the next in the loop
         if debugging:
             print ("Invalid Email, moving on")
-        os.remove("/etc/googleCalendar/mail/"+message)
+            print ("Proceed: "+str(Proceed))
+            print ("groupName: "+str(groupName))
+            print ("dateString: "+str(dateString))
+            print ("zoomLink: "+str(zoomLink))
+#        os.remove("/etc/googleCalendar/mail/"+message)
         continue
     
     #Break the dateString into parts

@@ -60,11 +60,11 @@ service = build('calendar', 'v3', http=creds.authorize(Http()))
 
 #Load all the email files into memory
 messages = os.listdir("/etc/googleCalendar/mail")
-Proceed = True; groupName = False; dateString = False; zoomLink = False
 for message in messages:
     lines = openFile ( message )
     #Loop through the lines looking for the info.
     for line in lines:
+        Proceed = True; groupName = False; dateString = False; zoomLink = False
         if "Subject:" in line:
             #This is the subject line.
             #Need to check if it is an invitation to next meeting

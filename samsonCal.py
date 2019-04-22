@@ -6,7 +6,7 @@ from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 
-debugging = True
+debugging = False
 
 os.chdir('/etc/googleCalendar/')
 
@@ -148,14 +148,13 @@ for message in messages:
         response = requests.post('https://hooks.slack.com/services/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', headers=headers, data=data)
         continue
 
-    if debugging:
-        print("Group Name:\t"+groupName+"\nZoom Link:\t"+zoomLink+"\nStart Date:\t"+startDate.strftime("%b %d, %Y  %I:%M %p")+"\nEnd Date:\t"+endDate.strftime("%b %d, %Y  %I:%M %p")+"\nTimezone:\t"+timezone)
-
     #convert datetime objects into strings
     startDateStr = startDate.strftime('%Y-%m-%dT%H:%M:00')
     endDateStr = endDate.strftime('%Y-%m-%dT%H:%M:00')
     if not(ModificatonEmail):
         #Not a modification email. Make a new event
+        if debugging:
+            print("Group Name:\t"+groupName+"\nZoom Link:\t"+zoomLink+"\nStart Date:\t"+startDate.strftime("%b %d, %Y  %I:%M %p")+"\nEnd Date:\t"+endDate.strftime("%b %d, %Y  %I:%M %p")+"\nTimezone:\t"+timezone)
         description = zoomLink+"\nCall In Numbers:\n+1-877-369-0926\n+1-408-638-0968\n+1-646-558-8656"
         event = {
             'summary': groupName,
@@ -206,6 +205,7 @@ for message in messages:
         #is a modification Email
         #Get the event ID of the matching event
         now = datetime.utcnow().isoformat() + 'Z'
+        page_token = None
         while True:
             events = service.events().list(calendarId='primary', timeMin=now, pageToken=page_token).execute()
             for event in events['items']:

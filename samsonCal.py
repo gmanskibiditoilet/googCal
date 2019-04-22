@@ -80,7 +80,7 @@ for message in messages:
                 newMeeing( message, groupName)
                 Proceed = False
                 break
-        if "Our next meeting will be" in line: #This is a next Meeting Email
+        if "ur next meeting will be" in line: #This is a next Meeting Email
             #This is the paragraph line
             try:
                 dateString = str(re.findall("((Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{2}, \d{4} at \d{2}:\d{2} (AM|PM) \(.*\))",line)[0][0])

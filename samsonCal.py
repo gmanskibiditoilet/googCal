@@ -6,7 +6,7 @@ from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 
-debugging = False
+debugging = True
 
 os.chdir('/etc/googleCalendar/')
 
@@ -74,6 +74,8 @@ for message in messages:
             elif "Samson Meeting Changed" in line:
                 groupName = line.split(': ')[1]
                 ModificatonEmail = True
+                if (debugging):
+                    print("This is a Modification Email")
             #Need to check if it is an invitation to the first meeting of a new group
             elif "Your Invitation to Join the Samson Society Group" in line:
                 groupName = line.split(': ')[1]
@@ -220,6 +222,7 @@ for message in messages:
                     event['start'] = {'dateTime': startDateStr, 'timeZone': timezone}
                     event['end'] = {'dateTime': endDateStr, 'timeZone': timezone}
                     updatedEvent = service.events().update(calendarId='primary', eventId=myEventID, body=event).execute()
+                    os.remove("/etc/googleCalendar/mail/"+message)
                     break
             page_token = events.get('nextPageToken')
             if not page_token:

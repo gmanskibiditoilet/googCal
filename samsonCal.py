@@ -226,12 +226,12 @@ for message in messages:
                     break
             page_token = events.get('nextPageToken')
             if not page_token:
-            if debugging:
-                #Verbose notifications
-                headers = {
-                    'Content-type': 'application/json',
-                }
-                output="Update made for: "+groupName
-                data = '{"text":"%s"}' % (output)
-                response = requests.post('https://hooks.slack.com/services/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', headers=headers, data=data)
+                if debugging:
+                    #Verbose notifications
+                    headers = {
+                        'Content-type': 'application/json',
+                    }
+                    output="Update made for: "+groupName
+                    data = '{"text":"%s"}' % (output)
+                    response = requests.post('https://hooks.slack.com/services/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', headers=headers, data=data)
                 break

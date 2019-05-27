@@ -43,6 +43,9 @@ def newMeeing ( filePath, groupName ):
             #get everything beginning with https:// and ending with '>
             matches = re.findall("https:\/\/.*'>", line)
             link = str(matches[0])[:-2] #Convert to string and strip the last 2 extraneous characters
+    headers = {
+        'Content-type': 'application/json',
+    }
     output="INVITATION to "+groupName+" in mailbox - Click the link to accept: "+link+' - To make this message stop see directions at https://bit.ly/2DoC7gA"}'
     data = '{"text":"%s"}' % (output)
     print(data)
@@ -138,7 +141,8 @@ for message in messages:
         'Alaska': 'America/Anchorage',
         'Amsterdam, Berlin, Bern, Rome, Stockho': 'Europe/Rome',
         'Greenwich Mean Time : London': 'Etc/GMT',
-        'Pacific Time': 'America/Los_Angeles'
+        'Pacific Time': 'America/Los_Angeles',
+        'Hawaii': 'Pacific/Honolulu'
     }
     timezone = TimezoneDictionary.get(timezoneStr, 'Unknown Timezone')
     if timezone == 'Unknown Timezone':

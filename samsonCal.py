@@ -142,7 +142,8 @@ for message in messages:
         'Amsterdam, Berlin, Bern, Rome, Stockho': 'Europe/Rome',
         'Greenwich Mean Time : London': 'Etc/GMT',
         'Pacific Time': 'America/Los_Angeles',
-        'Hawaii': 'Pacific/Honolulu'
+        'Hawaii': 'Pacific/Honolulu',
+        'Arizona': 'America/Phoenix'
     }
     timezone = TimezoneDictionary.get(timezoneStr, 'Unknown Timezone')
     if timezone == 'Unknown Timezone':

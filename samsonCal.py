@@ -6,9 +6,21 @@ from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 
-debugging = False
+debugging = True
 
 os.chdir('/etc/googleCalendar/')
+
+headers = {
+    'Content-type': 'application/json',
+}
+f=open("/etc/googleCalendar/slack.txt", "r")
+if f.mode == 'r':
+    slackapikey=f.read().strip()
+    f.close()
+    if debugging:
+        print("Slack API Key is "+slackapikey)
+f.close()
+
 
 #check email
 try:
@@ -49,7 +61,7 @@ def newMeeing ( filePath, groupName ):
     output="INVITATION to "+groupName+" in mailbox - Click the link to accept: "+link+' - To make this message stop see directions at https://bit.ly/2DoC7gA"}'
     data = '{"text":"%s"}' % (output)
     print(data)
-    response = requests.post('https://hooks.slack.com/services/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', headers=headers, data=data)
+    response = requests.post(slackapikey, headers=headers, data=data)
 
 #Instantiate Google Calendar API
 SCOPES = 'https://www.googleapis.com/auth/calendar'
@@ -152,7 +164,7 @@ for message in messages:
         }
         output="Encountered unknown timezone "+timezoneStr+" in "+groupName
         data = '{"text":"%s"}' % (output)
-        response = requests.post('https://hooks.slack.com/services/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', headers=headers, data=data)
+        response = requests.post(slackapikey, headers=headers, data=data)
         continue
 
     #convert datetime objects into strings
@@ -162,7 +174,7 @@ for message in messages:
         #Not a modification email. Make a new event
         if debugging:
             print("Group Name:\t"+groupName+"\nZoom Link:\t"+zoomLink+"\nStart Date:\t"+startDate.strftime("%b %d, %Y  %I:%M %p")+"\nEnd Date:\t"+endDate.strftime("%b %d, %Y  %I:%M %p")+"\nTimezone:\t"+timezone)
-        description = zoomLink+"\nCall In Numbers:\n+1-877-369-0926\n+1-408-638-0968\n+1-646-558-8656"
+        description = zoomLink+"\nCall In Numbers:\n+1-408-638-0968\n+1-646-558-8656"
         event = {
             'summary': groupName,
             'location': zoomLink,
@@ -206,8 +218,8 @@ for message in messages:
             output=groupName+input+error
             data = '{"text":"%s"}' % (output)
             print(data)
-            response = requests.post('https://hooks.slack.com/services/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', headers=headers, data=data)
-        #response = requests.post('https://hooks.slack.com/services/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', headers=headers, data=data)
+            response = requests.post(slackapikey, headers=headers, data=data)
+            #response = requests.post('https://hooks.slack.com/services/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', headers=headers, data=data)
     else:
         #is a modification Email
         #Get the event ID of the matching event

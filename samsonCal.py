@@ -6,7 +6,7 @@ from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 
-debugging = True
+debugging = False
 
 os.chdir('/etc/googleCalendar/')
 
@@ -155,7 +155,8 @@ for message in messages:
         'Greenwich Mean Time : London': 'Etc/GMT',
         'Pacific Time': 'America/Los_Angeles',
         'Hawaii': 'Pacific/Honolulu',
-        'Arizona': 'America/Phoenix'
+        'Arizona': 'America/Phoenix',
+        'Beijing, Chongqing, Hong Kong, Urumqi': 'Asia/Shanghai'
     }
     timezone = TimezoneDictionary.get(timezoneStr, 'Unknown Timezone')
     if timezone == 'Unknown Timezone':

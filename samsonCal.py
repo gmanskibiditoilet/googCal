@@ -147,6 +147,7 @@ for message in messages:
         if debugging:
             print("Removed trailing ) from time zone string")
     #Convert email format timezone to Google format timezoneStr
+    #Website to get formats: http://www.timezoneconverter.com/cgi-bin/zonehelp.tzc
     TimezoneDictionary = {
         'Eastern Time': 'America/New_York',
         'Central Time': 'America/Chicago',
@@ -156,7 +157,9 @@ for message in messages:
         'Pacific Time': 'America/Los_Angeles',
         'Hawaii': 'Pacific/Honolulu',
         'Arizona': 'America/Phoenix',
-        'Beijing, Chongqing, Hong Kong, Urumqi': 'Asia/Shanghai'
+        'Beijing, Chongqing, Hong Kong, Urumqi': 'Asia/Shanghai',
+        'Seoul':'Asia/Seoul',
+        'Mountain Time':'America/Denver'
     }
     timezone = TimezoneDictionary.get(timezoneStr, 'Unknown Timezone')
     if timezone == 'Unknown Timezone':
@@ -205,7 +208,7 @@ for message in messages:
                 }
                 output="Event created for: "+groupName
                 data = '{"text":"%s"}' % (output)
-                response = requests.post('https://hooks.slack.com/services/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', headers=headers, data=data)
+                response = requests.post(slackapikey, headers=headers, data=data)
 
         except:
             if debugging:

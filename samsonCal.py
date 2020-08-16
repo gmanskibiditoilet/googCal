@@ -82,6 +82,8 @@ for message in messages:
     for line in lines:
         if "Subject:" in line:
             #This is the subject line.
+            if (debugging):
+                print(line)
             #Need to check if it is an invitation to next meeting
             if "Invitation to Next Samson" in line:
                 groupName = line.split(': ')[1]

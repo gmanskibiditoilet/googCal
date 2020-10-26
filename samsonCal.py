@@ -161,7 +161,8 @@ for message in messages:
         'Arizona': 'America/Phoenix',
         'Beijing, Chongqing, Hong Kong, Urumqi': 'Asia/Shanghai',
         'Seoul':'Asia/Seoul',
-        'Mountain Time':'America/Denver'
+        'Mountain Time':'America/Denver',
+        'Nairobi':'Africa/Nairobi'
     }
     timezone = TimezoneDictionary.get(timezoneStr, 'Unknown Timezone')
     if timezone == 'Unknown Timezone':

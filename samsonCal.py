@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
+from email.header import make_header, decode_header
 
 debugging = False
 
@@ -84,8 +85,14 @@ for message in messages:
             #This is the subject line.
             if (debugging):
                 print(line)
+            #Check if UTF-8
+            if "UTF-8" in line:
+                line = str(make_header(decode_header(line)))
+            if (debugging):
+                print("Converted from UTF-8")
+                print(line)
             #Need to check if it is an invitation to next meeting
-            if "Invitation to Next Samson" in line:
+            if "Invitation to Next Sa" in line:
                 groupName = line.split(': ')[1]
             #Check if this is a modification of an existing meeting
             elif "Samson Meeting Changed" in line:

@@ -169,7 +169,7 @@ for message in messages:
         'Beijing, Chongqing, Hong Kong, Urumqi': 'Asia/Shanghai',
         'Seoul':'Asia/Seoul',
         'Mountain Time':'America/Denver',
-        'Nairobi':'Africa/Nairobi'
+        'Nairobi':'Africa/Nairobi',
         'Dublin':"Europe/Dublin"
     }
     timezone = TimezoneDictionary.get(timezoneStr, 'Unknown Timezone')

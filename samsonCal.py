@@ -7,7 +7,7 @@ from httplib2 import Http
 from oauth2client import file, client, tools
 from email.header import make_header, decode_header
 
-debugging = True
+debugging = False
 
 os.chdir('/etc/googleCalendar/')
 

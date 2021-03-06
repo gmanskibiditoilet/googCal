@@ -170,6 +170,7 @@ for message in messages:
         'Seoul':'Asia/Seoul',
         'Mountain Time':'America/Denver',
         'Nairobi':'Africa/Nairobi'
+        'Dublin':"Europe/Dublin"
     }
     timezone = TimezoneDictionary.get(timezoneStr, 'Unknown Timezone')
     if timezone == 'Unknown Timezone':

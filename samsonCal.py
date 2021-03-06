@@ -7,7 +7,7 @@ from httplib2 import Http
 from oauth2client import file, client, tools
 from email.header import make_header, decode_header
 
-debugging = False
+debugging = True
 
 os.chdir('/etc/googleCalendar/')
 
@@ -151,10 +151,12 @@ for message in messages:
         timezoneStr = timezoneStr[:-1]
         if debugging:
             print("Removed trailing space from time zone string")
+            print(timezoneStr)
     if timezoneStr[-1] == ')':
         timezoneStr = timezoneStr[:-1]
         if debugging:
             print("Removed trailing ) from time zone string")
+            print(timezoneStr)
     #Convert email format timezone to Google format timezoneStr
     #Website to get formats: http://www.timezoneconverter.com/cgi-bin/zonehelp.tzc
     TimezoneDictionary = {
@@ -170,7 +172,7 @@ for message in messages:
         'Seoul':'Asia/Seoul',
         'Mountain Time':'America/Denver',
         'Nairobi':'Africa/Nairobi',
-        'Dublin':"Europe/Dublin"
+        'Greenwich Mean Time : Dublin':"Europe/Dublin"
     }
     timezone = TimezoneDictionary.get(timezoneStr, 'Unknown Timezone')
     if timezone == 'Unknown Timezone':

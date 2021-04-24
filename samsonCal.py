@@ -164,7 +164,8 @@ for message in messages:
         'Central Time': 'America/Chicago',
         'Alaska': 'America/Anchorage',
         'Amsterdam, Berlin, Bern, Rome, Stockho': 'Europe/Rome',
-        'Greenwich Mean Time : London': 'Etc/GMT',
+#        'Greenwich Mean Time : London': 'Etc/GMT',
+        'Greenwich Mean Time : London': 'Europe/London',
         'Pacific Time': 'America/Los_Angeles',
         'Hawaii': 'Pacific/Honolulu',
         'Arizona': 'America/Phoenix',
@@ -172,7 +173,8 @@ for message in messages:
         'Seoul':'Asia/Seoul',
         'Mountain Time':'America/Denver',
         'Nairobi':'Africa/Nairobi',
-        'Greenwich Mean Time : Dublin':"Europe/Dublin"
+        'Greenwich Mean Time : Dublin':"Europe/Dublin",
+        'Minsk':'Europe/Minsk'
     }
     timezone = TimezoneDictionary.get(timezoneStr, 'Unknown Timezone')
     if timezone == 'Unknown Timezone':

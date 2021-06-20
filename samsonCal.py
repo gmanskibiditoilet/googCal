@@ -86,10 +86,10 @@ for message in messages:
             if (debugging):
                 print(line)
             #Check if UTF-8
-            if "UTF-8" in line:
+            if "ascii" in line or "UTF-8" in line:
                 line = str(make_header(decode_header(line)))
             if (debugging):
-                print("Converted from UTF-8")
+                print("Decoded from UTF-8 or ASCII")
                 print(line)
             #Need to check if it is an invitation to next meeting
             if "Invitation to Next Sa" in line:

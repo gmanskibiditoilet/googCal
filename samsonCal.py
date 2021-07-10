@@ -12,7 +12,7 @@ from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 
-debugging = False
+debugging = True
 GOOGLE_CALENDAR_MAIL_PATH = "/etc/googleCalendar/mail/"
 
 os.chdir('/etc/googleCalendar/')
@@ -103,16 +103,16 @@ for message in messages:
         print(subject)
     # Need to check if it is an invitation to next meeting
     if "Invitation to Next Samson Society Meeting" in subject:
-        groupName = subject.split(': ')[1]
+        groupName = subject.split(': ')[0]
     # Check if this is a modification of an existing meeting
     elif "Samson Meeting Changed" in subject:
-        groupName = subject.split(': ')[1]
+        groupName = subject.split(': ')[0]
         ModificationEmail = True
         if debugging:
             print("This is a Modification Email")
     # Need to check if it is an invitation to the first meeting of a new group
     elif "Your Invitation to Join the Samson Society Group" in subject:
-        groupName = subject.split(': ')[1]
+        groupName = subject.split(': ')[0]
         newMeeting( message, groupName)
         Proceed = False
 

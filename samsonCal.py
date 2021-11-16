@@ -181,21 +181,22 @@ for message in messages:
     # Convert email format timezone to Google format timezoneStr
     # Website to get formats: http://www.timezoneconverter.com/cgi-bin/zonehelp.tzc
     TimezoneDictionary = {
-        'Eastern Time': 'America/New_York',
-        'Central Time': 'America/Chicago',
+        'Adelaide': 'Australia/Adelaide',
         'Alaska': 'America/Anchorage',
         'Amsterdam, Berlin, Bern, Rome, Stockho': 'Europe/Rome',
-        # 'Greenwich Mean Time : London': 'Etc/GMT',
-        'Greenwich Mean Time : London': 'Europe/London',
-        'Pacific Time': 'America/Los_Angeles',
-        'Hawaii': 'Pacific/Honolulu',
         'Arizona': 'America/Phoenix',
         'Beijing, Chongqing, Hong Kong, Urumqi': 'Asia/Shanghai',
-        'Seoul': 'Asia/Seoul',
+        'Central Time': 'America/Chicago',
+        'Eastern Time': 'America/New_York',
+        'Greenwich Mean Time : Dublin': "Europe/Dublin",
+        # 'Greenwich Mean Time : London': 'Etc/GMT',
+        'Greenwich Mean Time : London': 'Europe/London',
+        'Hawaii': 'Pacific/Honolulu',
+        'Minsk': 'Europe/Minsk',
         'Mountain Time': 'America/Denver',
         'Nairobi': 'Africa/Nairobi',
-        'Greenwich Mean Time : Dublin': "Europe/Dublin",
-        'Minsk': 'Europe/Minsk'
+        'Pacific Time': 'America/Los_Angeles',
+        'Seoul': 'Asia/Seoul'
     }
     timezone = TimezoneDictionary.get(timezoneStr, 'Unknown Timezone')
     if timezone == 'Unknown Timezone':

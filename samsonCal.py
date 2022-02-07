@@ -12,7 +12,7 @@ from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 
-debugging = True
+debugging = False
 GOOGLE_CALENDAR_MAIL_PATH = "/etc/googleCalendar/mail/"
 
 os.chdir('/etc/googleCalendar/')
@@ -196,7 +196,8 @@ for message in messages:
         'Mountain Time': 'America/Denver',
         'Nairobi': 'Africa/Nairobi',
         'Pacific Time': 'America/Los_Angeles',
-        'Seoul': 'Asia/Seoul'
+        'Seoul': 'Asia/Seoul',
+        'Chennai, Kolkata, Mumbai, New Delhi': 'Asia/Kolkata'
     }
     timezone = TimezoneDictionary.get(timezoneStr, 'Unknown Timezone')
     if timezone == 'Unknown Timezone':

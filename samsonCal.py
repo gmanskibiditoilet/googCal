@@ -6,6 +6,10 @@ import re
 import requests
 import subprocess
 import sys
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
 from datetime import datetime, timedelta
 from email import policy
 from googleapiclient.discovery import build
